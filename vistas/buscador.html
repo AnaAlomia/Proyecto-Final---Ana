@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="view port" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="../css/buscador.css" />
+</head>
+
+<body>
+    <header>
+        <h1 class="titulo">Buscador de Productos</h1>
+
+        <nav>
+			<ul class="main-nav">
+				<li class="main-nav__item"><a href="../index.html">Productos</a></li>
+			</ul>
+		</nav>
+    </header>
+
+    <div class="camposFiltros">
+
+        <input type="text" id="nombre" placeholder="Nombre" placeholder="Nombre" />
+
+        <select id="categoria">
+            <option disabled selected>Seleccione una opcion</option>
+            <option value="Herramientas manuales">Herramientas manuales</option>,
+            <option value="Herramientas de medición">Herramientas de medición</option>,
+            <option value="Herramientas Electricas">Herramientas Electricas</option>,
+            <option value="Maquinaria Especializada">Maquinaria Especializada</option>,
+            <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
+        </select>
+
+        <input type="text" id="marca" placeholder="Marca" />
+
+        <div class = "btFiltros">
+            <button onclick="" class="btBuscar">Buscar</button>
+            <button onclick="" class="btLimpiar">Limpiar</button>
+        </div>
+    </div>
+
+    <section id="tabla-articulos">
+
+    </section>
+
+    <div class="index">
+        <button onclick="" class="btPag">
+            < Anterior </button>
+                <button onclick="" class="btPag"> Siguiente > </button>
+    </div>
+
+    <script src="js/array.js"></script>
+</body>
+
+</html>

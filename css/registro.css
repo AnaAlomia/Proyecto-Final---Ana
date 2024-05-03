@@ -1,0 +1,71 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+img {
+    margin: 50px;
+    padding: 50px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+  }
+
+section {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    width: 420px;
+    box-shadow: 0 0 20px rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+
+section> h2 {
+    font-size: 25px;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(76, 76, 76, 0.2);
+    outline-color: rgba(26, 141, 248, 0.736);
+}
+
+.botones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.botones > .btCancelar,.btLimpiar, .btRegristrar{
+    padding: 6px 10px;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btRegristrar {
+    background-color: #4CAF50;
+}
+
+.btLimpiar {
+    background-color: #26a1da;
+    }
+
+.btCancelar {
+    background-color: #da2626;
+}

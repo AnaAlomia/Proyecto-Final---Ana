@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="view port" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Productos</title>
+    <link rel="stylesheet" href="../css/registro.css" />
+</head>
+
+<body>
+    <section>
+
+        <h2>Registro de productos</h2>
+
+        <img src="" alt="Imagen">
+        
+        <input type="text" id="nombre" placeholder="Nombre" placeholder="Nombre" />
+
+        <input type="text" id="codigo" required minlength="8" placeholder="Codigo" />
+
+        <select id="categoria">
+            <option disabled selected>Seleccione una opcion</option>
+            <option value="Herramientas manuales">Herramientas manuales</option>,
+            <option value="Herramientas de medición">Herramientas de medición</option>,
+            <option value="Herramientas Electricas">Herramientas Electricas</option>,
+            <option value="Maquinaria Especializada">Maquinaria Especializada</option>,
+            <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
+        </select>
+
+        <input type="text" id="marca" placeholder="Marca" />
+
+        <input type="text" id="modelo" placeholder="Modelo" />
+
+        <input type="number" id="precio" placeholder="Precio" />
+
+        <input type="number" id="cantidad" placeholder="Cantidad" />
+
+        <div class="botones">
+            <div>
+                <button onclick="registrar()" class="btRegristrar">Registrar</button>
+                <button onclick="cleanFields()" class="btLimpiar">Limpiar</button>
+            </div>
+            <a  href="../index.html" class="btCancelar">Cancelar</a>
+    </section>
+    <script src="../js/array.js"></script>
+</body>
+
+</html>
