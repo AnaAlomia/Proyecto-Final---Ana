@@ -13,11 +13,9 @@ body {
 }
 
 img {
-    margin: 50px;
-    padding: 50px;
-    background-color: rgb(245, 245, 245);
-    border-radius: 10px;
-  }
+    width: 70%;
+    margin: 0 auto;
+}
 
 section {
     display: flex;
@@ -29,12 +27,30 @@ section {
     text-align: center;
 }
 
-section> h2 {
+.cargarImagen {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.cargarImagen>button {
+    flex-shrink: 0;
+    width: 80px;
+    align-self: baseline;
+}
+
+.cargarImagen>input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+section>h2 {
     font-size: 25px;
 }
 
-input, select {
-    padding: 10px;
+input,
+select {
+    padding: 6px;
     border-radius: 5px;
     margin-bottom: 15px;
     border: 1px solid rgba(76, 76, 76, 0.2);
@@ -48,7 +64,9 @@ input, select {
     margin-top: 20px;
 }
 
-.botones > .btCancelar,.btLimpiar, .btRegristrar{
+.botones>.btCancelar,
+.btLimpiar,
+.btRegristrar {
     padding: 6px 10px;
     color: rgb(255, 255, 255);
     border: none;
@@ -58,13 +76,22 @@ input, select {
     cursor: pointer;
 }
 
+.btCargar {
+    padding: 7px;
+    border: none;
+    background-color: #26a1da;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .btRegristrar {
     background-color: #4CAF50;
 }
 
 .btLimpiar {
     background-color: #26a1da;
-    }
+}
 
 .btCancelar {
     background-color: #da2626;

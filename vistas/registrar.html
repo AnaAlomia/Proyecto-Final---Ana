@@ -13,9 +13,16 @@
 
         <h2>Registro de productos</h2>
 
-        <img src="" alt="Imagen">
+        <div id="contenedorImg">
         
-        <input type="text" id="nombre" placeholder="Nombre" placeholder="Nombre" />
+        </div>
+
+        <div class="cargarImagen">
+            <input type="text" id="urlImagen" placeholder="URL Imagen" />
+            <button onclick="cargarImg()" class="btCargar">Cargar</button>
+        </div>
+
+        <input type="text" id="nombre" placeholder="Nombre" />
 
         <input type="text" id="codigo" required minlength="8" placeholder="Codigo" />
 
@@ -32,16 +39,16 @@
 
         <input type="text" id="modelo" placeholder="Modelo" />
 
-        <input type="number" id="precio" placeholder="Precio" />
+        <input type="number" id="precio" placeholder="Precio" min="0" />
 
-        <input type="number" id="cantidad" placeholder="Cantidad" />
+        <input type="number" id="cantidad" placeholder="Cantidad" min="0" />
 
         <div class="botones">
             <div>
                 <button onclick="registrar()" class="btRegristrar">Registrar</button>
                 <button onclick="cleanFields()" class="btLimpiar">Limpiar</button>
             </div>
-            <a  href="../index.html" class="btCancelar">Cancelar</a>
+            <a href="../index.html" class="btCancelar">Cancelar</a>
     </section>
     <script src="../js/array.js"></script>
 </body>

@@ -6,6 +6,7 @@
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgb(245, 245, 245);
 }
 
 header {
@@ -46,24 +47,124 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top:auto;
+	margin-top: 20px;
+	margin-bottom: 40px;
 }
 
-.index > button {
-    background: transparent;
-    color: rgb(59, 59, 59);
-    cursor: pointer;
+.index > button, div > button {
+	background: transparent;
+	color: rgb(59, 59, 59);
 	border: none;
 	padding: 5px 15px;
+	cursor: pointer;
+}
+
+.btPagactive {
+	background-color: #007bff; 
+	color: #fff; 
+	border-radius: 5px;
+  }
+
+.btPag:hover {
+	background: #c5e5ff;
+	color: rgb(9, 9, 9);
+	border-radius: 5px;
 }
 
 .index > button:hover {
-    background: #c5e5ff;
-    color:  rgb(9, 9, 9);
+	background: #c5e5ff;
+	color: rgb(9, 9, 9);
 	border-radius: 5px;
 }
 
 section {
-	margin: 20px;
-	background: black;
-} 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.tarjeta {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; 
+
+	padding: 20px;
+	margin: 15px;
+	width: 250px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 5px;
+	transition: box-shadow 0.3s;
+	position: relative;
+}
+
+.tarjeta > img {
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 5px;
+}
+
+.codigo {
+	color: rgb(79, 79, 79);
+	font-size: 10px;
+}
+
+.marca {
+	color: rgb(79, 79, 79);
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.nombre {
+	color: rgb(44, 44, 44);
+	font-size: 15px;
+}
+
+.categoria {
+	color: rgb(44, 44, 44);
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.precio {
+	color: rgb(36, 36, 36);
+	font-size: 15px;
+	margin-top: 10px;
+}
+
+.rojo,
+.verde,
+.amarillo {
+	margin-top: 10px;
+	color: rgb(255, 255, 255);
+	padding: 5px;
+	text-align: center;
+	font-size: 15px;
+	border-radius: 12px;
+}
+
+.rojo {
+	background-color: rgb(227, 11, 54);
+}
+
+.verde {
+	background-color: forestgreen;
+}
+
+.amarillo {
+	background-color: darkorange;
+}
+
+.tarjeta::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+	transition: box-shadow 0.3s;
+}
+
+.tarjeta:hover::after {
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
