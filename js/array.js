@@ -502,154 +502,248 @@ let herramientas = [
   },
 ];
 
+//-----Obtener el ID del Body - Conocer la vista--------//
+const bodyId = document.body.id;
+console.log(bodyId);
+
 //----Funciones de Vista Registar----//
+if (bodyId === "registro") {
+  function registrar() {
+    const nombre = document.getElementById("nombre").value;
+    const codigo = document.getElementById("codigo").value;
+    const categoria = document.getElementById("categoria").value;
+    const marca = document.getElementById("marca").value;
+    const modelo = document.getElementById("modelo").value;
+    const precio = parseInt(document.getElementById("precio").value);
+    const cantidad = parseInt(document.getElementById("cantidad").value);
 
-function registrar() {
-  const nombre = document.getElementById("nombre").value;
-  const codigo = document.getElementById("codigo").value;
-  const categoria = document.getElementById("categoria").value;
-  const marca = document.getElementById("marca").value;
-  const modelo = document.getElementById("modelo").value;
-  const precio = parseInt(document.getElementById("precio").value);
-  const cantidad = parseInt(document.getElementById("cantidad").value);
+    let newElemen = {
+      nombre: nombre,
+      codigo: codigo,
+      categoria: categoria,
+      marca: marca,
+      modelo: modelo,
+      precio: precio,
+      cantidad: cantidad
+    };
 
-  let newElemen = {
-    nombre: nombre,
-    codigo: codigo,
-    categoria: categoria,
-    marca: marca,
-    modelo: modelo,
-    precio: precio,
-    cantidad: cantidad
+    herramientas.push(newElemen);
+
+    console.log(newElemen);
+    console.log(herramientas.length);
   };
 
-  herramientas.push(newElemen);
+  function cleanFields() {
+    document.getElementById("nombre").value = '';
+    document.getElementById("codigo").value = '';
+    document.getElementById("categoria").selectedIndex = 0;
+    document.getElementById("marca").value = '';
+    document.getElementById("modelo").value = '';
+    document.getElementById("precio").value = '';
+    document.getElementById("cantidad").value = '';
 
-  console.log(newElemen);
-  console.log(herramientas.length);
-};
+    console.log("Limpiando");
+  }
 
-function cleanFields() {
-  document.getElementById("nombre").value = '';
-  document.getElementById("codigo").value = '';
-  document.getElementById("categoria").selectedIndex = 0;
-  document.getElementById("marca").value = '';
-  document.getElementById("modelo").value = '';
-  document.getElementById("precio").value = '';
-  document.getElementById("cantidad").value = '';
+  function cargarImg() {
+    const imagen = document.getElementById("urlImagen").value;
+    console.log(imagen);
 
-  console.log("Limpiando");
+    var contenedorImg = document.getElementById("contenedorImg");
+    var imagenPintada = "";
+
+    imagenPintada += "<img src=" + imagen + "</img>";
+
+    contenedorImg.innerHTML = imagenPintada;
+  }
 }
 
-function cargarImg() {
-  const imagen = document.getElementById("urlImagen").value;
-  console.log(imagen);
+//----Funciones de Vista Tarjeta-Articulos----//
+if (bodyId === "tarjetas") {
+  //----Funciones de Vista Productos----//
+  //Valores iniciales
+  let paginaActual = 1;
+  const elementosPorPagina = 15;
+  const paginas = Math.ceil(herramientas.length / elementosPorPagina);
+  numeritos();
+  mostrarTarjetas();
 
-  var contenedorImg = document.getElementById("contenedorImg");
-  var imagenPintada = "";
+  //Numeritos de index
+  function numeritos() {
+    var contenedorNumeritos = document.getElementById("numeritos");
+    var numerosIndex = "";
 
-  imagenPintada += "<img src=" + imagen + "</img>";
-
-  contenedorImg.innerHTML = imagenPintada;
-}
-
-
-
-//----Funciones de Vista Productos----//
-
-//Valores iniciales
-let paginaActual = 1;
-const elementosPorPagina = 15;
-const paginas = Math.ceil(herramientas.length / elementosPorPagina);
-numeritos();
-mostrarTarjetas();
-
-//Numeritos de index
-function numeritos() {
-  var contenedorNumeritos = document.getElementById("numeritos");
-  var numerosIndex = "";
-
-  for (var i = 0; i < paginas; i++) {
-    if (i + 1 === paginaActual) {
-      numerosIndex += "<button class='btPagactive' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
-    } else {
-      numerosIndex += "<button class='btPag' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
+    for (var i = 0; i < paginas; i++) {
+      if (i + 1 === paginaActual) {
+        numerosIndex += "<button class='btPagactive' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
+      } else {
+        numerosIndex += "<button class='btPag' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
+      }
     }
+    contenedorNumeritos.innerHTML = numerosIndex;
   }
-  contenedorNumeritos.innerHTML = numerosIndex;
+
+  //Funcion para mostrar o Pintar las Tarjetas 
+  function mostrarTarjetas() {
+
+    var contenedorTarjetas = document.getElementById("cards-articulos");
+    var tarjetas = "";
+
+    var inicio = (paginaActual - 1) * elementosPorPagina;
+    var fin = inicio + elementosPorPagina;
+    if (fin > herramientas.length) {
+      fin = herramientas.length;
+    }
+
+    for (var i = inicio; i < fin; i++) {
+
+      var numero = herramientas[i].precio;
+      var numeroFormateado = numero.toLocaleString();
+
+      var color = colorDisponible(herramientas[i].cantidad);
+
+      tarjetas += "<div class='tarjeta'>";
+
+      tarjetas += "<p class = 'codigo'>" + herramientas[i].codigo + "</p>";
+
+      tarjetas += "<img src='" + herramientas[i].imagen + "'>";
+
+      tarjetas += "<div class ='cuerpo'>";
+      tarjetas += "<p class = 'marca'>" + herramientas[i].marca + "</p>";
+      tarjetas += "<p class = 'nombre'>" + herramientas[i].nombre + " " + herramientas[i].modelo + "</p>";
+
+      tarjetas += "<div class = 'categoria'";
+      tarjetas += "<p> Categoria:</p>"
+      tarjetas += "<p>" + herramientas[i].categorias + "</p>";
+      tarjetas += "</div>"; // Etiqueta de cierre de div Class Categoria
+
+      tarjetas += "<p class = 'precio'> $" + numeroFormateado + " Unidad </p>";
+      tarjetas += "<p class ='" + color + "'> Cantidad: " + herramientas[i].cantidad + "</p>";
+      tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
+
+      tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
+    }
+    contenedorTarjetas.innerHTML = tarjetas;
+  }
+
+  //Funcion para cambiar de página
+  function cambiarPagina(numeroPagina) {
+    paginaActual = numeroPagina;
+    numeritos();
+    mostrarTarjetas();
+  }
+
+  //Funcion para recibir las ordenes del HTML
+  function paginacion(valor) {
+
+    if (valor === 'Anterior' && paginaActual > 1) {
+      paginaActual--;
+    } else if (valor === 'Siguiente' && paginaActual < paginas) {
+      paginaActual++;
+    }
+    numeritos();
+    mostrarTarjetas();
+  }
+
+  //Funcion de animacion para pintar segun las cantidades
+  function colorDisponible(cant) {
+    var color = "";
+    if (cant < 10) {
+      color = "rojo";
+    } else if (cant >= 10 && cant < 20) {
+      color = "amarillo";
+    } else {
+      color = "verde"
+    }
+    return color;
+  }
 }
 
-//Funcion para mostrar o Pintar las Tarjetas 
-function mostrarTarjetas() {
+//----Funciones de Vista Buscar----//
+if (bodyId === "buscador") {
 
-  var contenedorTarjetas = document.getElementById("cards-articulos");
-  var tarjetas = "";
+  //Valores inciales
+  generarTabla(herramientas);
 
-  var inicio = (paginaActual - 1) * elementosPorPagina;
-  var fin = inicio + elementosPorPagina;
-  if (fin > herramientas.length) {
-    fin = herramientas.length;
+  //Funcion principal para ejectar al seleccionar los filtros
+  function ejecutarFiltro() {
+    let listValida = generarFilt();
+    let newArry = procesamientoDeDatos(listValida);
+    generarTabla(newArry);
   }
 
-  for (var i = inicio; i < fin; i++) {
+  function generarFilt() {
+    let listValida = [];
 
-    var numero = herramientas[i].precio;
-    var numeroFormateado = numero.toLocaleString();
+    const nombre = document.getElementById("nombre").value.toLowerCase();
+    const marca = document.getElementById("marca").value.toLowerCase();
+    const categoria = document.getElementById("categoria").value;
 
-    var color = colorDisponible(herramientas[i].cantidad);
+    for (let i = 0; i < herramientas.length; i++) {
+      var condicion1 = herramientas[i].marca.toLowerCase().includes(marca) || marca === '';
+      console.log("Condicion 1 = Marca" + condicion1);
 
-    tarjetas += "<div class='tarjeta'>";
+      var condicion2 = herramientas[i].nombre.toLowerCase().includes(nombre) || nombre === '';
+      console.log("Condicion 2 = nombre" + condicion1);
 
-    tarjetas += "<p class = 'codigo'>" + herramientas[i].codigo + "</p>";
+      var condicion3 = herramientas[i].categorias.includes(categoria) || categoria === "Seleccione una opcion";
+      console.log("Condicion 3 = categoria" + condicion1);
 
-    tarjetas += "<img src='" + herramientas[i].imagen + "'>";
-
-    tarjetas += "<div class ='cuerpo'>";
-    tarjetas += "<p class = 'marca'>" + herramientas[i].marca + "</p>";
-    tarjetas += "<p class = 'nombre'>" + herramientas[i].nombre + " " + herramientas[i].modelo + "</p>";
-
-    tarjetas += "<div class = 'categoria'";
-    tarjetas += "<p> Categoria:</p>"
-    tarjetas += "<p>" + herramientas[i].categorias + "</p>";
-    tarjetas += "</div>"; // Etiqueta de cierre de div Class Categoria
-
-    tarjetas += "<p class = 'precio'> $" + numeroFormateado + " Unidad </p>";
-    tarjetas += "<p class ='" + color + "'> Cantidad: " + herramientas[i].cantidad + "</p>";
-    tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
-
-    tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
+      if (condicion1 == true && condicion2 == true && condicion3 == true) {
+        listValida.push(herramientas[i]);
+      }
+    }
+    return listValida;
   }
-  contenedorTarjetas.innerHTML = tarjetas;
-}
 
-//Funcion para cambiar de página
-function cambiarPagina(numeroPagina) {
-  paginaActual = numeroPagina;
-  numeritos();
-  mostrarTarjetas();
-}
-
-//Funcion para recibir las ordenes del HTML
-function paginacion(valor) {
-
-  if (valor === 'Anterior' && paginaActual > 1) {
-    paginaActual--;
-  } else if (valor === 'Siguiente' && paginaActual < paginas) {
-    paginaActual++;
+  function procesamientoDeDatos(dataToProcess) {
+    let newData = [];
+    for (let index = 0; index < dataToProcess.length; index++) {
+      newData.push({
+        codigo: dataToProcess[index].codigo,
+        nombre: dataToProcess[index].nombre,
+        categorias: dataToProcess[index].categorias,
+        marca: dataToProcess[index].marca,
+        modelo: dataToProcess[index].modelo,
+        cantidad: dataToProcess[index].cantidad,
+      });
+    }
+    return newData;
   }
-  numeritos();
-  mostrarTarjetas();
-}
 
-//Funcion de animacion para pintar segun las cantidades
-function colorDisponible(cant) {
-  var color = "";
-  if (cant < 10) {
-    color = "rojo";
-  } else if (cant >= 10 && cant < 20) {
-    color = "amarillo";
-  } else {
-    color = "verde"
+  function generarTabla(newData) {
+    var tablaBody = document.getElementById("tbArticulos");
+    var contenidoTab = "";
+    console.log (newData.length);
+
+    if (newData.length === 0) {
+      contenidoTab += "<p> No hay articulos para mostrar </p>";
+      console.log ("No hay elementos para mostrar");
+
+    } else {
+
+      for (let i = 0; i < newData.length; i++) {
+        contenidoTab += "<tr>";
+        contenidoTab += "<td>" + newData[i].codigo + "</td>";
+        contenidoTab += "<td>" + newData[i].nombre + "</td>";
+        contenidoTab += "<td>" + newData[i].categorias + "</td>";
+        contenidoTab += "<td>" + newData[i].marca + "</td>";
+        contenidoTab += "<td>" + newData[i].modelo + "</td>";
+        contenidoTab += "<td>" + newData[i].cantidad + "</td>";
+        contenidoTab += "</tr>";
+      }
+    }
+    tablaBody.innerHTML = contenidoTab;
+    return listValida;
   }
-  return color;
+
+  function cleanFields_2() {
+    document.getElementById("nombre").value = '';
+    document.getElementById("marca").value = '';
+    document.getElementById("categoria").selectedIndex = 0;
+
+    console.log("Limpiando");
+
+    generarTabla(herramientas);
+  }
 }

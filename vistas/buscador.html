@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="../css/buscador.css" />
 </head>
 
-<body>
+<body id="buscador">
+
     <header>
         <h1 class="titulo">Buscador de Productos</h1>
 
         <nav>
-			<ul class="main-nav">
-				<li class="main-nav__item"><a href="../index.html">Productos</a></li>
-			</ul>
-		</nav>
+            <ul class="main-nav">
+                <li class="main-nav__item"><a href="../index.html">Productos</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="camposFiltros">
@@ -32,25 +33,34 @@
             <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
         </select>
 
-        <input type="text" id="marca" placeholder="Marca" />
+        <input type="text" id="marca" placeholder="Marca"/>
 
-        <div class = "btFiltros">
-            <button onclick="" class="btBuscar">Buscar</button>
-            <button onclick="" class="btLimpiar">Limpiar</button>
+        <div class="btFiltros">
+            <button onclick="ejecutarFiltro()" class="btBuscar">Buscar</button>
+            <button onclick="cleanFields_2 ()" class="btLimpiar">Limpiar</button>
         </div>
     </div>
 
-    <section id="tabla-articulos">
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
 
+            <tbody id="tbArticulos">
+            
+            </tbody>
+        </table>
     </section>
 
-    <div class="index">
-        <button onclick="" class="btPag">
-            < Anterior </button>
-                <button onclick="" class="btPag"> Siguiente > </button>
-    </div>
-
-    <script src="js/array.js"></script>
+    <script src="../js/array.js"></script>
 </body>
 
 </html>

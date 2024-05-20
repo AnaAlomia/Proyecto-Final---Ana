@@ -6,14 +6,15 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 50px;
 }
 
 header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background: #252932;
-	padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #252932;
+    padding: 10px;
 }
 
 .titulo {
@@ -22,55 +23,56 @@ header {
 }
 
 .main-nav {
-	list-style: none;
+    list-style: none;
     margin: 5px 10px;
 }
 
 .main-nav__item {
-	display: inline-block;
+    display: inline-block;
 }
 
 .main-nav__item a {
-	padding: 10px 10px;
-	font-size: 15px;
-	color: white;
-	text-decoration: none;
+    padding: 10px 10px;
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
 }
 
 .main-nav__item a:hover {
-	background: #f56f3a;
-	border-radius: 50px;
+    background: #f56f3a;
+    border-radius: 50px;
 }
 
 
 .index {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
 }
 
-.index > button {
+.index>button {
     background: transparent;
     color: rgb(59, 59, 59);
     cursor: pointer;
-	border: none;
-	padding: 5px 15px;
+    border: none;
+    padding: 5px 15px;
 }
 
-.index > button:hover {
+.index>button:hover {
     background: #c5e5ff;
-    color:  rgb(9, 9, 9);
-	border-radius: 5px;
+    color: rgb(9, 9, 9);
+    border-radius: 5px;
 }
 
 .camposFiltros {
     display: flex;
     flex-direction: row;
     margin: 20px;
-}   
+}
 
-input, select{
+input,
+select {
     margin-left: 10px;
     border-radius: 5px;
     border: 1px solid rgba(76, 76, 76, 0.2);
@@ -81,7 +83,8 @@ input, select{
     margin-left: 40px;
 }
 
-.btLimpiar, .btBuscar {
+.btLimpiar,
+.btBuscar {
     padding: 5px;
     color: rgb(255, 255, 255);
     border: none;
@@ -97,4 +100,41 @@ input, select{
 
 .btLimpiar {
     background-color: #26a1da;
+}
+
+table {
+    margin: auto; 
+    width: 95%;
+    border-collapse: collapse;
+}
+
+tr > th {
+    font-size: 15px;
+    background: #373737;
+    color: white;
+    padding: 5px;
+}
+
+tr > td {
+    padding: 5px;
+    color:#373737;
+}
+
+.centraDos {
+    text-align: center;
+}
+
+th:first-child {
+    border-top-left-radius: 10px;
+}
+th:last-child {
+    border-top-right-radius: 10px;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgb(245, 245, 245);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgb(255, 255, 255);
 }
