@@ -10,19 +10,9 @@
 
 <body id="registro">
     <section>
-
         <h2>Registro de productos</h2>
 
-        <div id="contenedorImg">
-        
-        </div>
-
-        <div class="cargarImagen">
-            <input type="text" id="urlImagen" placeholder="URL Imagen" />
-            <button onclick="cargarImg()" class="btCargar">Cargar</button>
-        </div>
-
-        <input type="text" id="nombre" placeholder="Nombre" />
+        <input type="text" id="nombre" placeholder="Nombre" maxlength="20"/>
 
         <input type="text" id="codigo" required minlength="8" placeholder="Codigo" />
 
@@ -39,18 +29,29 @@
 
         <input type="text" id="modelo" placeholder="Modelo" />
 
-        <input type="number" id="precio" placeholder="Precio" min="0" />
+        <input type="number" id="precio" placeholder="Precio" min="0"/>
 
-        <input type="number" id="cantidad" placeholder="Cantidad" min="0" />
+        <input type="number" id="cantidad" placeholder="Cantidad" min="1" />
+
+        <div class="cargarImagen">
+            <input type="text" id="urlImagen" placeholder="URL Imagen" />
+            <button onclick="cargarImg()" class="btCargar">Cargar</button>
+        </div>
+        
+        <div id="contenedorImg" class="contendorImagen">
+        
+        </div>
 
         <div class="botones">
             <div>
-                <button onclick="registrar()" class="btRegristrar">Registrar</button>
+                <button onclick="regristrado()" class="btRegristrar">Registrar</button>
                 <button onclick="cleanFields()" class="btLimpiar">Limpiar</button>
             </div>
             <a href="../index.html" class="btCancelar">Cancelar</a>
     </section>
     <script src="../js/array.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </body>
 
 </html>

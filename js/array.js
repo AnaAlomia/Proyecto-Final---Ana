@@ -504,11 +504,32 @@ let herramientas = [
 
 //-----Obtener el ID del Body - Conocer la vista--------//
 const bodyId = document.body.id;
-console.log(bodyId);
 
 //----Funciones de Vista Registar----//
 if (bodyId === "registro") {
-  function registrar() {
+
+  function regristrado() {
+    Swal.fire({
+      icon: "success",
+      title: "Producto registrado con exito",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    setTimeout(function () {
+      window.location.href = "../index.html"
+    }, 2000);
+  };
+
+  function noRegistrado() {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Hubo un error al regitrar el producto",
+      footer: '<a href="../vistas/instrucciones">¿Por que sucede esto?"</a>'
+    });
+  }
+
+  function validaciones() {
     const nombre = document.getElementById("nombre").value;
     const codigo = document.getElementById("codigo").value;
     const categoria = document.getElementById("categoria").value;
@@ -528,9 +549,6 @@ if (bodyId === "registro") {
     };
 
     herramientas.push(newElemen);
-
-    console.log(newElemen);
-    console.log(herramientas.length);
   };
 
   function cleanFields() {
@@ -541,8 +559,9 @@ if (bodyId === "registro") {
     document.getElementById("modelo").value = '';
     document.getElementById("precio").value = '';
     document.getElementById("cantidad").value = '';
+    document.getElementById("urlImagen").value = '';
 
-    console.log("Limpiando");
+    document.getElementById('contenedorImg').innerHTML = '';
   }
 
   function cargarImg() {
@@ -560,7 +579,6 @@ if (bodyId === "registro") {
 
 //----Funciones de Vista Tarjeta-Articulos----//
 if (bodyId === "tarjetas") {
-  //----Funciones de Vista Productos----//
   //Valores iniciales
   let paginaActual = 1;
   const elementosPorPagina = 15;
@@ -571,23 +589,53 @@ if (bodyId === "tarjetas") {
   //Numeritos de index
   function numeritos() {
     var contenedorNumeritos = document.getElementById("numeritos");
-    var numerosIndex = "";
+    var contenedorBtAnter = document.getElementById("btAnter");
+    var contenedorBtSigui = document.getElementById("btSigui");
+
+    contenedorNumeritos.innerHTML = "";
+    contenedorBtAnter.innerHTML = "";
+    contenedorBtSigui.innerHTML = "";
+
+    if (paginaActual > 1) {
+
+      var botonAnterior = document.createElement("button");
+      botonAnterior.textContent = "< Anterior";
+      botonAnterior.classList.add("btMov");
+      botonAnterior.onclick = function () {
+        paginacion('Anterior');
+      }
+      contenedorBtAnter.appendChild(botonAnterior);
+    }
 
     for (var i = 0; i < paginas; i++) {
+      var numerito = document.createElement("button");
+      numerito.textContent = i + 1;
       if (i + 1 === paginaActual) {
-        numerosIndex += "<button class='btPagactive' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
+        numerito.classList.add("btPagactive");
       } else {
-        numerosIndex += "<button class='btPag' onclick='cambiarPagina(" + (i + 1) + ")'>" + (i + 1) + "</button>";
+        numerito.classList.add("btPag");
       }
+      contenedorNumeritos.appendChild(numerito);
     }
-    contenedorNumeritos.innerHTML = numerosIndex;
+
+    if (paginaActual < paginas) {
+    
+      var botonSiguiente = document.createElement("button");
+      botonSiguiente.textContent = "Siguiente >";
+      botonSiguiente.classList.add("btMov");
+      botonSiguiente.onclick = function () {
+        paginacion('Siguiente');
+      }
+      contenedorBtSigui.appendChild(botonSiguiente);
+      console.log("Se creo el " + botonSiguiente)
+    }
   }
 
   //Funcion para mostrar o Pintar las Tarjetas 
   function mostrarTarjetas() {
 
     var contenedorTarjetas = document.getElementById("cards-articulos");
-    var tarjetas = "";
+    contenedorTarjetas.innerHTML = "";
 
     var inicio = (paginaActual - 1) * elementosPorPagina;
     var fin = inicio + elementosPorPagina;
@@ -602,35 +650,55 @@ if (bodyId === "tarjetas") {
 
       var color = colorDisponible(herramientas[i].cantidad);
 
-      tarjetas += "<div class='tarjeta'>";
+      var tarjeta = document.createElement("div");
+      tarjeta.classList.add("tarjeta");
 
-      tarjetas += "<p class = 'codigo'>" + herramientas[i].codigo + "</p>";
+      var codigo = document.createElement("p");
+      codigo.classList.add("codigo");
+      codigo.textContent = herramientas[i].codigo;
+      tarjeta.appendChild(codigo);
 
-      tarjetas += "<img src='" + herramientas[i].imagen + "'>";
+      var imagen = document.createElement("img");
+      imagen.src = herramientas[i].imagen;
+      tarjeta.appendChild(imagen);
 
-      tarjetas += "<div class ='cuerpo'>";
-      tarjetas += "<p class = 'marca'>" + herramientas[i].marca + "</p>";
-      tarjetas += "<p class = 'nombre'>" + herramientas[i].nombre + " " + herramientas[i].modelo + "</p>";
+      var cuerpo = document.createElement("div");
+      cuerpo.classList.add("cuerpo");
 
-      tarjetas += "<div class = 'categoria'";
-      tarjetas += "<p> Categoria:</p>"
-      tarjetas += "<p>" + herramientas[i].categorias + "</p>";
-      tarjetas += "</div>"; // Etiqueta de cierre de div Class Categoria
+      var marca = document.createElement("p");
+      marca.classList.add("marca");
+      marca.textContent = herramientas[i].marca;
+      cuerpo.appendChild(marca);
 
-      tarjetas += "<p class = 'precio'> $" + numeroFormateado + " Unidad </p>";
-      tarjetas += "<p class ='" + color + "'> Cantidad: " + herramientas[i].cantidad + "</p>";
-      tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
+      var nombre = document.createElement("p");
+      nombre.classList.add("nombre");
+      nombre.textContent = herramientas[i].nombre + " " + herramientas[i].modelo;
+      cuerpo.appendChild(nombre);
 
-      tarjetas += "</div>"; // Etiqueta de cierre de div Class Tarjeta
+      var categoria = document.createElement("div");
+      categoria.classList.add("categoria");
+      var categoriaTitulo = document.createElement("p");
+      categoriaTitulo.textContent = "Categoría:";
+      var categoriaValor = document.createElement("p");
+      categoriaValor.textContent = herramientas[i].categorias;
+      categoria.appendChild(categoriaTitulo);
+      categoria.appendChild(categoriaValor);
+      cuerpo.appendChild(categoria);
+
+      var precio = document.createElement("p");
+      precio.classList.add("precio");
+      precio.textContent = "$" + numeroFormateado + " Unidad";
+      cuerpo.appendChild(precio);
+
+      var cantidad = document.createElement("p");
+      cantidad.textContent = "Cantidad: " + herramientas[i].cantidad;
+      cantidad.classList.add(color);
+      cuerpo.appendChild(cantidad);
+
+      tarjeta.appendChild(cuerpo);
+
+      contenedorTarjetas.appendChild(tarjeta);
     }
-    contenedorTarjetas.innerHTML = tarjetas;
-  }
-
-  //Funcion para cambiar de página
-  function cambiarPagina(numeroPagina) {
-    paginaActual = numeroPagina;
-    numeritos();
-    mostrarTarjetas();
   }
 
   //Funcion para recibir las ordenes del HTML
@@ -663,13 +731,75 @@ if (bodyId === "tarjetas") {
 if (bodyId === "buscador") {
 
   //Valores inciales
-  generarTabla(herramientas);
+  let paginaActual = 1;
+  let arrayMostrar = herramientas;
+  const elementosPorPagina = 10;
+  let paginas = Math.ceil(herramientas.length / elementosPorPagina);
+  generarTabla(arrayMostrar);
+  numeritos2();
 
   //Funcion principal para ejectar al seleccionar los filtros
   function ejecutarFiltro() {
     let listValida = generarFilt();
-    let newArry = procesamientoDeDatos(listValida);
-    generarTabla(newArry);
+    arrayMostrar = procesamientoDeDatos(listValida);
+    paginas = Math.ceil(arrayMostrar.length / elementosPorPagina);
+    paginaActual = 1;
+    generarTabla(arrayMostrar);
+    numeritos2();
+  }
+
+  function paginacion2(valor) {
+    if (valor === 'Anterior' && paginaActual > 1) {
+      paginaActual--;
+    } else if (valor === 'Siguiente' && paginaActual < paginas) {
+      paginaActual++;
+    }
+    numeritos2();
+    generarTabla(arrayMostrar);
+  }
+
+  function numeritos2() {
+    var contenedorNumeritos = document.getElementById("numeritos");
+    var contenedorBtAnter = document.getElementById("btAnter");
+    var contenedorBtSigui = document.getElementById("btSigui");
+
+    contenedorNumeritos.innerHTML = "";
+    contenedorBtAnter.innerHTML = "";
+    contenedorBtSigui.innerHTML = "";
+
+    if (paginaActual > 1) {
+
+      var botonAnterior = document.createElement("button");
+      botonAnterior.textContent = "< Anterior";
+      botonAnterior.classList.add("btMov");
+      botonAnterior.onclick = function () {
+        paginacion2('Anterior');
+      }
+      contenedorBtAnter.appendChild(botonAnterior);
+    }
+
+    for (var i = 0; i < paginas; i++) {
+      var numerito = document.createElement("button");
+      numerito.textContent = i + 1;
+      if (i + 1 === paginaActual) {
+        numerito.classList.add("btPagactive");
+      } else {
+        numerito.classList.add("btPag");
+      }
+      contenedorNumeritos.appendChild(numerito);
+    }
+
+    if (paginaActual < paginas) {
+    
+      var botonSiguiente = document.createElement("button");
+      botonSiguiente.textContent = "Siguiente >";
+      botonSiguiente.classList.add("btMov");
+      botonSiguiente.onclick = function () {
+        paginacion2('Siguiente');
+      }
+      contenedorBtSigui.appendChild(botonSiguiente);
+      console.log("Se creo el " + botonSiguiente)
+    }
   }
 
   function generarFilt() {
@@ -713,28 +843,52 @@ if (bodyId === "buscador") {
 
   function generarTabla(newData) {
     var tablaBody = document.getElementById("tbArticulos");
-    var contenidoTab = "";
-    console.log (newData.length);
+    tablaBody.innerHTML = "";
+    console.log(newData.length);
 
-    if (newData.length === 0) {
-      contenidoTab += "<p> No hay articulos para mostrar </p>";
-      console.log ("No hay elementos para mostrar");
+    if (newData.length == 0) {
+      var mensaje = document.createElement("p");
+      mensaje.textContent = "No hay articulos para mostrar";
+      tablaBody.appendChild(mensaje);
+      console.log("No hay elementos para mostrar");
 
     } else {
+      var inicio = (paginaActual - 1) * elementosPorPagina;
+      var fin = inicio + elementosPorPagina;
+      if (fin > newData.length) {
+        fin = newData.length;
+      }
 
-      for (let i = 0; i < newData.length; i++) {
-        contenidoTab += "<tr>";
-        contenidoTab += "<td>" + newData[i].codigo + "</td>";
-        contenidoTab += "<td>" + newData[i].nombre + "</td>";
-        contenidoTab += "<td>" + newData[i].categorias + "</td>";
-        contenidoTab += "<td>" + newData[i].marca + "</td>";
-        contenidoTab += "<td>" + newData[i].modelo + "</td>";
-        contenidoTab += "<td>" + newData[i].cantidad + "</td>";
-        contenidoTab += "</tr>";
+      for (var i = inicio; i < fin; i++) {
+        var tr = document.createElement("tr");
+
+        var tdCodigo = document.createElement("td");
+        tdCodigo.textContent = newData[i].codigo;
+        tr.appendChild(tdCodigo);
+
+        var tdNombre = document.createElement("td");
+        tdNombre.textContent = newData[i].nombre;
+        tr.appendChild(tdNombre);
+
+        var tdCategorias = document.createElement("td");
+        tdCategorias.textContent = newData[i].categorias;
+        tr.appendChild(tdCategorias);
+
+        var tdMarca = document.createElement("td");
+        tdMarca.textContent = newData[i].marca;
+        tr.appendChild(tdMarca);
+
+        var tdModelo = document.createElement("td");
+        tdModelo.textContent = newData[i].modelo;
+        tr.appendChild(tdModelo);
+
+        var tdCantidad = document.createElement("td");
+        tdCantidad.textContent = newData[i].cantidad;
+        tr.appendChild(tdCantidad);
+
+        tablaBody.appendChild(tr);
       }
     }
-    tablaBody.innerHTML = contenidoTab;
-    return listValida;
   }
 
   function cleanFields_2() {
@@ -744,6 +898,10 @@ if (bodyId === "buscador") {
 
     console.log("Limpiando");
 
-    generarTabla(herramientas);
+    paginaActual = 1;
+    arrayMostrar = herramientas;
+    paginas = Math.ceil(herramientas.length / elementosPorPagina);
+    generarTabla(arrayMostrar);
+    numeritos2();
   }
 }

@@ -22,6 +22,7 @@ header {
     font-size: 25px;
 }
 
+/* Menu de navegacion */
 .main-nav {
     list-style: none;
     margin: 5px 10px;
@@ -43,28 +44,39 @@ header {
     border-radius: 50px;
 }
 
-
+/* Paginacion */
 .index {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+	margin-bottom: 40px;
 }
 
-.index>button {
-    background: transparent;
-    color: rgb(59, 59, 59);
-    cursor: pointer;
-    border: none;
-    padding: 5px 15px;
+button {
+	background: transparent;
+	color: rgb(59, 59, 59);
+	border: none;
+	padding: 5px 15px;
 }
 
-.index>button:hover {
-    background: #c5e5ff;
-    color: rgb(9, 9, 9);
-    border-radius: 5px;
+.btMov {
+	cursor: pointer;
 }
 
+.btMov:hover {
+	background: #c5e5ff;
+	color: rgb(9, 9, 9);
+	border-radius: 5px;
+}
+
+.btPagactive {
+	background-color: #007bff;
+	color: #fff;
+	border-radius: 5px;
+} 
+
+/*Campos de Filtros */
 .camposFiltros {
     display: flex;
     flex-direction: row;
@@ -102,6 +114,7 @@ select {
     background-color: #26a1da;
 }
 
+/* Tabla */
 table {
     margin: auto; 
     width: 95%;

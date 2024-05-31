@@ -30,7 +30,6 @@ section {
 .cargarImagen {
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
 
 .cargarImagen>button {
@@ -46,6 +45,7 @@ section {
 
 section>h2 {
     font-size: 25px;
+    margin-bottom: 20px;
 }
 
 input,
@@ -95,4 +95,10 @@ select {
 
 .btCancelar {
     background-color: #da2626;
+}
+
+.contendorImagen {
+    height: 200px;
+    border: 1px solid rgba(76, 76, 76, 0.2);
+    border-radius: 5px ;
 }

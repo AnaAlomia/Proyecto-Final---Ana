@@ -51,29 +51,26 @@ header {
 	margin-bottom: 40px;
 }
 
-.index > button, div > button {
+button {
 	background: transparent;
 	color: rgb(59, 59, 59);
 	border: none;
 	padding: 5px 15px;
+}
+
+.btMov {
 	cursor: pointer;
 }
 
-.btPagactive {
-	background-color: #007bff; 
-	color: #fff; 
-	border-radius: 5px;
-  }
-
-.btPag:hover {
+.btMov:hover {
 	background: #c5e5ff;
 	color: rgb(9, 9, 9);
 	border-radius: 5px;
 }
 
-.index > button:hover {
-	background: #c5e5ff;
-	color: rgb(9, 9, 9);
+.btPagactive {
+	background-color: #007bff;
+	color: #fff;
 	border-radius: 5px;
 }
 
@@ -86,7 +83,7 @@ section {
 .tarjeta {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between; 
+	justify-content: space-between;
 
 	padding: 20px;
 	margin: 15px;
@@ -97,7 +94,7 @@ section {
 	position: relative;
 }
 
-.tarjeta > img {
+.tarjeta>img {
 	width: 70%;
 	margin: 0 auto;
 	margin-top: 5px;
