@@ -508,25 +508,32 @@ const bodyId = document.body.id;
 //----Funciones de Vista Registar----//
 if (bodyId === "registro") {
 
-  function regristrado() {
-    Swal.fire({
-      icon: "success",
-      title: "Producto registrado con exito",
-      showConfirmButton: false,
-      timer: 2000,
-    });
-    setTimeout(function () {
-      window.location.href = "../index.html"
-    }, 2000);
-  };
+  function validarYEnviar() {
+    var resultadoValidacion = validaciones()
+    estadoRegistro (resultadoValidacion);
+  }
+  
+  function estadoRegistro(caso) {
+    if (caso.valido == true) {
+      Swal.fire({
+        icon: "success",
+        title: "Producto registrado con exito",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(function () {
+        window.location.href = "../index.html"
+      }, 2000);
+    }
 
-  function noRegistrado() {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Hubo un error al regitrar el producto",
-      footer: '<a href="../vistas/instrucciones">¿Por que sucede esto?"</a>'
-    });
+    if (caso.valido == false) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: caso.mensaje,
+        footer: '<a href="../vistas/instrucciones.html">¿Por que sucede esto?"</a>'
+      });
+    }
   }
 
   function validaciones() {
@@ -538,18 +545,29 @@ if (bodyId === "registro") {
     const precio = parseInt(document.getElementById("precio").value);
     const cantidad = parseInt(document.getElementById("cantidad").value);
 
-    let newElemen = {
-      nombre: nombre,
-      codigo: codigo,
-      categoria: categoria,
-      marca: marca,
-      modelo: modelo,
-      precio: precio,
-      cantidad: cantidad
-    };
+    // Verificar que ambos campos estén llenos
+    if (codigo === "" || nombre === "" || categoria === "" || marca === "" || modelo === "" || precio === "" || cantidad === "") {
+      return { valido: false, mensaje: "Por favor, completa los campos." };;
+    }
 
-    herramientas.push(newElemen);
+    var codigoValido = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{2,}).{8,}$/.test(codigo);
+    if (!codigoValido) {
+      return { valido: false, mensaje: "El codigo del producto no cumple las condiciones" };;
+    }
+
+    return true;
   };
+
+  function actualizarImagen() {
+    const seleccion = document.getElementById("selectorImagen").value;
+
+    var contenedorImagen = document.getElementById("contenedorImg");
+    contenedorImagen.innerHTML = "";
+
+    var imagen = document.createElement("img");
+    imagen.src = seleccion;
+    contenedorImagen.appendChild(imagen);
+  }
 
   function cleanFields() {
     document.getElementById("nombre").value = '';
@@ -559,21 +577,10 @@ if (bodyId === "registro") {
     document.getElementById("modelo").value = '';
     document.getElementById("precio").value = '';
     document.getElementById("cantidad").value = '';
-    document.getElementById("urlImagen").value = '';
+    document.getElementById("selectorImagen").selectedIndex = 0;
 
-    document.getElementById('contenedorImg').innerHTML = '';
-  }
-
-  function cargarImg() {
-    const imagen = document.getElementById("urlImagen").value;
-    console.log(imagen);
-
-    var contenedorImg = document.getElementById("contenedorImg");
-    var imagenPintada = "";
-
-    imagenPintada += "<img src=" + imagen + "</img>";
-
-    contenedorImg.innerHTML = imagenPintada;
+    var contenedorImagen = document.getElementById("contenedorImg");
+    contenedorImagen.innerHTML = "";
   }
 }
 
@@ -619,7 +626,7 @@ if (bodyId === "tarjetas") {
     }
 
     if (paginaActual < paginas) {
-    
+
       var botonSiguiente = document.createElement("button");
       botonSiguiente.textContent = "Siguiente >";
       botonSiguiente.classList.add("btMov");
@@ -790,7 +797,7 @@ if (bodyId === "buscador") {
     }
 
     if (paginaActual < paginas) {
-    
+
       var botonSiguiente = document.createElement("button");
       botonSiguiente.textContent = "Siguiente >";
       botonSiguiente.classList.add("btMov");
@@ -830,12 +837,12 @@ if (bodyId === "buscador") {
     let newData = [];
     for (let index = 0; index < dataToProcess.length; index++) {
       newData.push({
-        codigo: dataToProcess[index].codigo,
+        imagen: dataToProcess[index].imagen,
         nombre: dataToProcess[index].nombre,
         categorias: dataToProcess[index].categorias,
+        precio: dataToProcess[index].precio,
         marca: dataToProcess[index].marca,
         modelo: dataToProcess[index].modelo,
-        cantidad: dataToProcess[index].cantidad,
       });
     }
     return newData;
@@ -862,29 +869,41 @@ if (bodyId === "buscador") {
       for (var i = inicio; i < fin; i++) {
         var tr = document.createElement("tr");
 
-        var tdCodigo = document.createElement("td");
-        tdCodigo.textContent = newData[i].codigo;
-        tr.appendChild(tdCodigo);
+        var tdImagen = document.createElement("td");
+        var imagen = document.createElement("img");
+
+        tdImagen.classList.add("celdaImagen");
+        imagen.src = newData[i].imagen;
+        tdImagen.appendChild(imagen);
+        tr.appendChild(tdImagen);
 
         var tdNombre = document.createElement("td");
+        tdNombre.classList.add("celdaNombre");
         tdNombre.textContent = newData[i].nombre;
         tr.appendChild(tdNombre);
 
         var tdCategorias = document.createElement("td");
+        tdCategorias.classList.add("celdaCategoria");
         tdCategorias.textContent = newData[i].categorias;
         tr.appendChild(tdCategorias);
 
+        var numero = newData[i].precio;
+        var numeroFormateado = numero.toLocaleString();
+
+        var tdPrecio = document.createElement("td");
+        tdPrecio.classList.add("celdaPrecio");
+        tdPrecio.textContent = "$" + numeroFormateado;
+        tr.appendChild(tdPrecio);
+
         var tdMarca = document.createElement("td");
+        tdMarca.classList.add("celdaMarca");
         tdMarca.textContent = newData[i].marca;
         tr.appendChild(tdMarca);
 
         var tdModelo = document.createElement("td");
+        tdModelo.classList.add("celdaModelo");
         tdModelo.textContent = newData[i].modelo;
         tr.appendChild(tdModelo);
-
-        var tdCantidad = document.createElement("td");
-        tdCantidad.textContent = newData[i].cantidad;
-        tr.appendChild(tdCantidad);
 
         tablaBody.appendChild(tr);
       }

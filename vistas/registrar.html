@@ -10,48 +10,69 @@
 
 <body id="registro">
     <section>
-        <h2>Registro de productos</h2>
-
-        <input type="text" id="nombre" placeholder="Nombre" maxlength="20"/>
-
-        <input type="text" id="codigo" required minlength="8" placeholder="Codigo" />
-
-        <select id="categoria">
-            <option disabled selected>Seleccione una opcion</option>
-            <option value="Herramientas manuales">Herramientas manuales</option>,
-            <option value="Herramientas de medición">Herramientas de medición</option>,
-            <option value="Herramientas Electricas">Herramientas Electricas</option>,
-            <option value="Maquinaria Especializada">Maquinaria Especializada</option>,
-            <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
-        </select>
-
-        <input type="text" id="marca" placeholder="Marca" />
-
-        <input type="text" id="modelo" placeholder="Modelo" />
-
-        <input type="number" id="precio" placeholder="Precio" min="0"/>
-
-        <input type="number" id="cantidad" placeholder="Cantidad" min="1" />
-
-        <div class="cargarImagen">
-            <input type="text" id="urlImagen" placeholder="URL Imagen" />
-            <button onclick="cargarImg()" class="btCargar">Cargar</button>
+        <div class="textoDescripcion">
+            <h1>¡Bienvenido al registro de productos!</h1>
+            <p> Aquí puedes ingresar los detalles de tus herramientas. Primero, proporciona el nombre y el código del
+                producto. Luego, elige su categoría, marca y modelo. ¿Cuánto cuesta y cuántos tienes disponibles?
+                También puedes seleccionar una imagen para representar tu producto. Una vez que completes todo, ¡estarás
+                listo para agregarlo a nuestra colección de herramientas!"</p>
+            <a href="../vistas/instrucciones.html" class="btIndicaciones">Ver instrucciones</a>
         </div>
-        
-        <div id="contenedorImg" class="contendorImagen">
-        
-        </div>
+        <div class="formulario">
+            <h2>Registro de productos</h2>
 
-        <div class="botones">
-            <div>
-                <button onclick="regristrado()" class="btRegristrar">Registrar</button>
-                <button onclick="cleanFields()" class="btLimpiar">Limpiar</button>
+            <input type="text" id="nombre" placeholder="Nombre" maxlength="20" />
+
+            <input type="text" id="codigo" required minlength="8" placeholder="Codigo" />
+
+            <select id="categoria">
+                <option disabled selected>Seleccione una categoria</option>
+                <option value="Herramientas manuales">Herramientas manuales</option>,
+                <option value="Herramientas de medición">Herramientas de medición</option>,
+                <option value="Herramientas Electricas">Herramientas Electricas</option>,
+                <option value="Maquinaria Especializada">Maquinaria Especializada</option>,
+                <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
+            </select>
+
+            <input type="text" id="marca" placeholder="Marca" />
+
+            <input type="text" id="modelo" placeholder="Modelo" />
+
+            <input type="number" id="precio" placeholder="Precio" min="0" />
+
+            <input type="number" id="cantidad" placeholder="Cantidad" min="1" />
+
+            <select id="selectorImagen" onchange="actualizarImagen()">
+                <option disabled selected>Seleccione una imagen</option>
+                <option value="../assets/img1.jpg">Taladro Inalambrico</option>,
+                <option value="../assets/img2.jpg">Martillo</option>,
+                <option value="../assets/img3.png">Calibardor</option>,
+                <option value="../assets/img4.jpeg">Estuche de herramientas</option>,
+                <option value="../assets/img5.jpg">Atornilladores</option>
+                <option value="../assets/img6.jpg">Micrometro</option>
+                <option value="../assets/img7.png">Taladro de impacto</option>
+                <option value="../assets/img8.jpg">Sierra Caladora</option>
+                <option value="../assets/img9.jpg">Llave ajustable</option>
+                <option value="../assets/img10.jpg">Nivel gota</option>
+            </select>
+
+            <div id="contenedorImg" class="contendorImagen">
+
             </div>
-            <a href="../index.html" class="btCancelar">Cancelar</a>
+
+            <div class="botones">
+                <div>
+                    <button onclick="validarYEnviar()" class="btRegristrar">Registrar</button>
+                    <button onclick="cleanFields()" class="btLimpiar">Limpiar</button>
+                </div>
+                <a href="../index.html" class="btCancelar">Cancelar</a>
+            </div>
+        </div>
     </section>
+
     <script src="../js/array.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
 </body>
 
 </html>

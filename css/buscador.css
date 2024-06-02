@@ -13,7 +13,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background: #252932;
+    background: #000000;
     padding: 10px;
 }
 
@@ -40,7 +40,7 @@ header {
 }
 
 .main-nav__item a:hover {
-    background: #f56f3a;
+    background:  rgb(255, 165, 0);
     border-radius: 50px;
 }
 
@@ -133,8 +133,40 @@ tr > td {
     color:#373737;
 }
 
-.centraDos {
+.celdaImagen {
+    width: 100px;
+}
+
+.celdaNombre {
+    width: 260px;
+    padding-left: 20px;
+}
+
+.celdaCategoria {
+    width: 300px;
     text-align: center;
+}
+
+.celdaPrecio {
+    width: 260px;
+    text-align: center;
+}
+
+.celdaMarca {
+    width: 260px;
+    text-align: center;
+}
+
+.celdaModelo {
+    text-align: center;
+}
+
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 th:first-child {
