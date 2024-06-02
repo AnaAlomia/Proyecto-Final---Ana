@@ -1,4 +1,4 @@
-# Proyecto-Final-Ana
+# Proyecto Final Ana Marcela Alomia
  Proyecto Final Fundamentos WEB: Sistema de Gestión de Ferretería
 
 ## Índice
