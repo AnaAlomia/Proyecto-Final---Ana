@@ -29,7 +29,7 @@ Este proyecto es parte del curso de desarrollo de software y tiene como objetivo
 [Enlace a la demo](https://proyecto-final-ana.vercel.app)
 
 ## Acceso al Proyecto
-El código fuente está disponible en GitHub: [Repositorio](https://github.com/tu_usuario/tu_proyecto)
+El código fuente está disponible en GitHub: [Repositorio](https://github.com/AnaAlomia/Proyecto-Final---Ana)
 
 ## Créditos
 Este proyecto fue desarrollado por [Ana Marcela Alomia Mina].
