@@ -3,9 +3,10 @@
 
 ## Índice
 1. [Descripción del Proyecto](#descripción-del-proyecto)
-3. [Demostración](#demostración)
-4. [Acceso al Proyecto](#acceso-al-proyecto)
-5. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+2. [Características Principales](#características-principales)
+3. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+4. [Demostración](#demostración)
+5. [Acceso al Proyecto](#acceso-al-proyecto)
 6. [Créditos](#contribuyentes)
 8. [Licencia](#licencia)
 
@@ -32,4 +33,6 @@ El código fuente está disponible en GitHub: [Repositorio](https://github.com/t
 
 ## Créditos
 Este proyecto fue desarrollado por [Ana Marcela Alomia Mina].
- 
+
+## Licencia
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
