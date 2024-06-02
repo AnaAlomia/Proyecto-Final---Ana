@@ -505,83 +505,117 @@ let herramientas = [
 //-----Obtener el ID del Body - Conocer la vista--------//
 const bodyId = document.body.id;
 
+//----Funcion inicial para contanerar los que esta en el Array Solido y los que creamos en la ventana registro---//
+// localStorage.removeItem('listaDeProductos');
+if (localStorage.getItem('listaDeProductos')) {
+  var productosLocalStorage = JSON.parse(localStorage.getItem('listaDeProductos'));
+  herramientas = herramientas.concat(productosLocalStorage);
+}
+
 //----Funciones de Vista Registar----//
 if (bodyId === "registro") {
 
-  function validarYEnviar() {
-    var resultadoValidacion = validaciones()
-    estadoRegistro (resultadoValidacion);
-  }
+  function guardarherramienta(nuevaherramienta) {
+    let herramientasGuardadas = localStorage.getItem('listaDeProductos');
+    let herramientasArray = herramientasGuardadas ? JSON.parse(herramientasGuardadas) : [];
   
-  function estadoRegistro(caso) {
-    if (caso.valido == true) {
-      Swal.fire({
-        icon: "success",
-        title: "Producto registrado con exito",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      setTimeout(function () {
-        window.location.href = "../index.html"
-      }, 2000);
-    }
-
-    if (caso.valido == false) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: caso.mensaje,
-        footer: '<a href="../vistas/instrucciones.html">¿Por que sucede esto?"</a>'
-      });
-    }
+    herramientasArray.push(nuevaherramienta);
+  
+    localStorage.setItem('listaDeProductos', JSON.stringify(herramientasArray));
   }
 
-  function validaciones() {
-    const nombre = document.getElementById("nombre").value;
-    const codigo = document.getElementById("codigo").value;
-    const categoria = document.getElementById("categoria").value;
-    const marca = document.getElementById("marca").value;
-    const modelo = document.getElementById("modelo").value;
-    const precio = parseInt(document.getElementById("precio").value);
-    const cantidad = parseInt(document.getElementById("cantidad").value);
+function validarYEnviar() {
+  var resultadoValidacion = validaciones();
+  estadoRegistro(resultadoValidacion);
 
-    // Verificar que ambos campos estén llenos
-    if (codigo === "" || nombre === "" || categoria === "" || marca === "" || modelo === "" || precio === "" || cantidad === "") {
-      return { valido: false, mensaje: "Por favor, completa los campos." };;
-    }
+  if (resultadoValidacion.valido == true) {
+    guardarherramienta(resultadoValidacion.producto);
+    cleanFields();
+  }
+}
 
-    var codigoValido = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{2,}).{8,}$/.test(codigo);
-    if (!codigoValido) {
-      return { valido: false, mensaje: "El codigo del producto no cumple las condiciones" };;
-    }
+function estadoRegistro(caso) {
+  if (caso.valido == true) {
+    Swal.fire({
+      icon: "success",
+      title: caso.mensaje,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    setTimeout(function () {
+     // window.location.href = "../index.html"
+    }, 2000);
+  }
 
-    return true;
+  if (caso.valido == false) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: caso.mensaje,
+      footer: '<a href="../vistas/instrucciones.html">¿Por que sucede esto?"</a>'
+    });
+  }
+}
+
+function validaciones() {
+  const nombre = document.getElementById("nombre").value;
+  const codigo = document.getElementById("codigo").value;
+  const categorias = document.getElementById("categoria").value;
+  const marca = document.getElementById("marca").value;
+  const modelo = document.getElementById("modelo").value;
+  const precio = parseInt(document.getElementById("precio").value);
+  const cantidad = parseInt(document.getElementById("cantidad").value);
+  const url = document.getElementById("selectorImagen").value;
+  const imagen = url.replace(".", "");
+
+  // Verificar que ambos campos estén llenos
+  if (codigo === "" || nombre === "" || categorias === "" || marca === "" || modelo === "" || precio === "" || cantidad === "" || imagen === "") {
+    return { valido: false, mensaje: "Por favor, completa los campos." };;
+  }
+
+  var codigoValido = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{2,}).{8,}$/.test(codigo);
+  if (!codigoValido) {
+    return { valido: false, mensaje: "El codigo del producto no cumple las condiciones" };
+  }
+
+  let newElemen = {
+    nombre: nombre,
+    codigo: codigo,
+    categorias: categorias,
+    marca: marca,
+    modelo: modelo,
+    precio: precio,
+    cantidad: cantidad,
+    imagen: imagen,
   };
 
-  function actualizarImagen() {
-    const seleccion = document.getElementById("selectorImagen").value;
+  return { valido: true, mensaje: "Producto registrado con exito", producto: newElemen };
+};
 
-    var contenedorImagen = document.getElementById("contenedorImg");
-    contenedorImagen.innerHTML = "";
+function actualizarImagen() {
+  const seleccion = document.getElementById("selectorImagen").value;
 
-    var imagen = document.createElement("img");
-    imagen.src = seleccion;
-    contenedorImagen.appendChild(imagen);
-  }
+  var contenedorImagen = document.getElementById("contenedorImg");
+  contenedorImagen.innerHTML = "";
 
-  function cleanFields() {
-    document.getElementById("nombre").value = '';
-    document.getElementById("codigo").value = '';
-    document.getElementById("categoria").selectedIndex = 0;
-    document.getElementById("marca").value = '';
-    document.getElementById("modelo").value = '';
-    document.getElementById("precio").value = '';
-    document.getElementById("cantidad").value = '';
-    document.getElementById("selectorImagen").selectedIndex = 0;
+  var imagen = document.createElement("img");
+  imagen.src = seleccion;
+  contenedorImagen.appendChild(imagen);
+}
 
-    var contenedorImagen = document.getElementById("contenedorImg");
-    contenedorImagen.innerHTML = "";
-  }
+function cleanFields() {
+  document.getElementById("nombre").value = '';
+  document.getElementById("codigo").value = '';
+  document.getElementById("categoria").selectedIndex = 0;
+  document.getElementById("marca").value = '';
+  document.getElementById("modelo").value = '';
+  document.getElementById("precio").value = '';
+  document.getElementById("cantidad").value = '';
+  document.getElementById("selectorImagen").selectedIndex = 0;
+
+  var contenedorImagen = document.getElementById("contenedorImg");
+  contenedorImagen.innerHTML = "";
+}
 }
 
 //----Funciones de Vista Tarjeta-Articulos----//
@@ -634,7 +668,6 @@ if (bodyId === "tarjetas") {
         paginacion('Siguiente');
       }
       contenedorBtSigui.appendChild(botonSiguiente);
-      console.log("Se creo el " + botonSiguiente)
     }
   }
 
@@ -745,14 +778,50 @@ if (bodyId === "buscador") {
   generarTabla(arrayMostrar);
   numeritos2();
 
-  //Funcion principal para ejectar al seleccionar los filtros
   function ejecutarFiltro() {
-    let listValida = generarFilt();
-    arrayMostrar = procesamientoDeDatos(listValida);
-    paginas = Math.ceil(arrayMostrar.length / elementosPorPagina);
-    paginaActual = 1;
-    generarTabla(arrayMostrar);
-    numeritos2();
+    mostrarCargando();
+
+    const obtenerDatos = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let listValida = generarFilt();
+        let arrayMostrar = procesamientoDeDatos(listValida);
+        paginas = Math.ceil(arrayMostrar.length / elementosPorPagina);
+        resolve({ arrayMostrar });
+      }, 2000);
+    });
+
+    obtenerDatos.then(({ arrayMostrar }) => {
+      ocultarCargando();
+      paginaActual = 1;
+      generarTabla(arrayMostrar);
+      numeritos2();
+    });
+  }
+
+  function mostrarCargando() {
+    var tablaBody = document.getElementById("tbArticulos");
+    tablaBody.innerHTML = "";
+
+    var contenedorNumeritos = document.getElementById("numeritos");
+    var contenedorBtAnter = document.getElementById("btAnter");
+    var contenedorBtSigui = document.getElementById("btSigui");
+
+    contenedorNumeritos.innerHTML = "";
+    contenedorBtAnter.innerHTML = "";
+    contenedorBtSigui.innerHTML = "";
+
+
+    var filaCargando = document.createElement("tr");
+    var celdaCargando = document.createElement("td");
+    celdaCargando.setAttribute("colspan", "6");
+    celdaCargando.textContent = "Cargando...";
+    filaCargando.appendChild(celdaCargando);
+    tablaBody.appendChild(filaCargando);
+  }
+
+  function ocultarCargando() {
+    var tablaBody = document.getElementById("tbArticulos");
+    tablaBody.innerHTML = "";
   }
 
   function paginacion2(valor) {
@@ -873,7 +942,11 @@ if (bodyId === "buscador") {
         var imagen = document.createElement("img");
 
         tdImagen.classList.add("celdaImagen");
-        imagen.src = newData[i].imagen;
+        if (newData[i].imagen.startsWith(".")) {
+          imagen.src = ("." + newData[i].imagen);
+        } else {
+          imagen.src = newData[i].imagen;
+        }
         tdImagen.appendChild(imagen);
         tr.appendChild(tdImagen);
 

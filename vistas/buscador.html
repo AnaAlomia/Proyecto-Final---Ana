@@ -22,14 +22,14 @@
 
     <div class="camposFiltros">
 
-        <input type="text" id="nombre" placeholder="Nombre" placeholder="Nombre" />
+        <input type="text" id="nombre" placeholder="Nombre" />
 
         <select id="categoria">
             <option disabled selected>Seleccione una opcion</option>
-            <option value="Herramientas manuales">Herramientas manuales</option>,
-            <option value="Herramientas de medición">Herramientas de medición</option>,
-            <option value="Herramientas Electricas">Herramientas Electricas</option>,
-            <option value="Maquinaria Especializada">Maquinaria Especializada</option>,
+            <option value="Herramientas manuales">Herramientas manuales</option>
+            <option value="Herramientas de medición">Herramientas de medición</option>
+            <option value="Herramientas Electricas">Herramientas Electricas</option>
+            <option value="Maquinaria Especializada">Maquinaria Especializada</option>
             <option value="Cajas de Herramientas y Organizadores">Cajas de Herramientas y Organizadores</option>
         </select>
 
@@ -55,6 +55,10 @@
             </thead>
 
             <tbody id="tbArticulos">
+
+                <div id="loadingIndicator" style="display: none;">
+                    Cargando...
+                </div>
             
             </tbody>
         </table>

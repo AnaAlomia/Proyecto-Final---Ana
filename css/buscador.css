@@ -131,6 +131,7 @@ tr > th {
 tr > td {
     padding: 5px;
     color:#373737;
+    height: 100px
 }
 
 .celdaImagen {
@@ -160,7 +161,6 @@ tr > td {
 .celdaModelo {
     text-align: center;
 }
-
 
 img {
     width: 100%;
